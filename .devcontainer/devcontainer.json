@@ -23,14 +23,16 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"ms-vscode.vscode-typescript-next",
-				"ms-vscode.vscode-json",
-				"bradlc.vscode-tailwindcss",
-				"vue.volar",
 				"bmewburn.vscode-intelephense-client",
+				"bradlc.vscode-tailwindcss",
+				"eamodio.gitlens",
+				"esbenp.prettier-vscode",
+				"mikestead.dotenv",
+				"ms-vscode.vscode-json",
+				"ms-vscode.vscode-typescript-next",
 				"onecentlin.laravel-blade",
 				"onecentlin.laravel5-snippets",
-				"mikestead.dotenv",
+				"vue.volar",
 				"xdebug.php-debug"
 			],
 			"settings": {

@@ -19,6 +19,8 @@ export default [
         window: 'readonly',
         document: 'readonly',
         console: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
         // Node.js globals for build tools
         process: 'readonly',
         __dirname: 'readonly',
@@ -43,7 +45,7 @@ export default [
 
       // Code style (handled by Prettier, but some logical rules)
       eqeqeq: ['error', 'always'],
-      curly: ['error', 'all'],
+      curly: ['error', 'all']
     },
   },
   {

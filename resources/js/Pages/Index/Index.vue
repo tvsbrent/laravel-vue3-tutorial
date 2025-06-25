@@ -1,8 +1,10 @@
-<template>Hello!!!! {{ count }}</template>
+<template>
+  <div>Index</div>
+  <div>The message is {{ message }}</div>
+</template>
 
 <script setup>
-import { ref } from 'vue';
-const count = ref(0);
-
-setInterval(() => count.value++, 1000);
+  defineProps({
+    message: String,
+  });
 </script>
