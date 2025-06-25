@@ -36,7 +36,7 @@
 			"settings": {
 				"php.suggest.basic": false,
 				"php.validate.enable": true,
-				"php.validate.executablePath": "/usr/local/bin/php",
+				"php.validate.executablePath": "/usr/local/php/current/bin/php",
 				"intelephense.files.maxSize": 5000000,
 				"editor.formatOnSave": true,
 				"editor.codeActionsOnSave": {
