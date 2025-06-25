@@ -1,76 +1,65 @@
 {
-	"name": "Laravel + Vue.js Development",
-	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-	"runArgs": ["--name", "laravel-vue"],
-
-	"features": {
-		"ghcr.io/devcontainers/features/php:1": {
-			"version": "8.2",
-			"installComposer": true,
-			"installXdebug": true
-		},
-		"ghcr.io/devcontainers/features/node:1": {
-			"version": "22"
-		},
-		"ghcr.io/devcontainers/features/git:1": {},
-		"ghcr.io/devcontainers/features/common-utils:2": {
-			"installZsh": true,
-			"configureZshAsDefaultShell": true,
-			"installOhMyZsh": true
-		}
-	},
-
+	"name": "Laravel with MariaDB",
+	"dockerComposeFile": "../docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspace",
+	"shutdownAction": "stopCompose",
+	"postCreateCommand": "chmod +x .devcontainer/setup.sh && .devcontainer/setup.sh",
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				"amiralizadeh9480.laravel-extra-intellisense",
 				"bmewburn.vscode-intelephense-client",
 				"bradlc.vscode-tailwindcss",
+				"codingyu.laravel-goto-view",
 				"eamodio.gitlens",
 				"esbenp.prettier-vscode",
+				"MehediDracula.php-namespace-resolver",
 				"mikestead.dotenv",
 				"ms-vscode.vscode-json",
 				"ms-vscode.vscode-typescript-next",
 				"onecentlin.laravel-blade",
-				"onecentlin.laravel5-snippets",
+				"ryannaddy.laravel-artisan",
 				"vue.volar",
 				"xdebug.php-debug"
 			],
 			"settings": {
-				"php.suggest.basic": false,
-				"php.validate.enable": true,
-				"php.validate.executablePath": "/usr/local/php/current/bin/php",
-				"intelephense.files.maxSize": 5000000,
-				"editor.formatOnSave": true,
+				"editor.formatOnSave": false,
 				"editor.codeActionsOnSave": {
 					"source.fixAll": "explicit"
-				}
+				},
+				"emmet.includeLanguages": {
+					"blade": "html"
+				},
+				"intelephense.files.maxSize": 5000000,
+				"php.suggest.basic": false,
+				"php.validate.enable": true,
+				"php.debug.executablePath": "/usr/bin/php8.2",
+				"php.executablePath": "/usr/bin/php8.2"
 			}
 		}
 	},
-
-	"postCreateCommand": "chmod +x .devcontainer/setup.sh && .devcontainer/setup.sh",
-
-	"forwardPorts": [8000, 3000, 5173, 9003],
+	"forwardPorts": [
+		3306,
+		5173,
+		8000,
+		8080
+	],
 	"portsAttributes": {
 		"8000": {
 			"label": "Laravel App",
 			"onAutoForward": "notify"
 		},
-		"3000": {
-			"label": "Vue Dev Server",
+		"3306": {
+			"label": "MariaDB"
+		},
+		"8080": {
+			"label": "Adminer",
 			"onAutoForward": "notify"
 		},
 		"5173": {
 			"label": "Vite Dev Server",
 			"onAutoForward": "notify"
 		}
-	},
-
-	"mounts": [
-		"source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
-	],
-
-	"workspaceFolder": "/workspace",
-
-	"remoteUser": "vscode"
+	}
 }

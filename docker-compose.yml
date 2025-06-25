@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_dev
+    restart: unless-stopped
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    ports:
+      - "8000:8000"
+      - "5173:5173"
+    # environment:
+    #   - DB_CONNECTION=mysql
+    #   - DB_HOST=mariadb
+    #   - DB_PORT=3306
+    #   - DB_DATABASE=laravel
+    #   - DB_USERNAME=laravel
+    #   - DB_PASSWORD=laravel
+    depends_on:
+      - mariadb
+    networks:
+      - laravel
+    # Keep container running for dev container
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+  mariadb:
+    image: mariadb:lts
+    container_name: laravel_mariadb
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - laravel
+
+  adminer:
+    image: adminer:4.8.1
+    container_name: laravel_adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: mariadb
+    depends_on:
+      - mariadb
+    networks:
+      - laravel
+
+volumes:
+  mariadb_data:
+
+networks:
+  laravel:
+    driver: bridge
