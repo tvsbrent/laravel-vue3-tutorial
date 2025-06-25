@@ -1,6 +1,9 @@
 import js from '@eslint/js';
 import vue from 'eslint-plugin-vue';
 import prettier from 'eslint-config-prettier';
+import typescript from '@typescript-eslint/eslint-plugin';
+import typescriptParser from '@typescript-eslint/parser';
+import vueParser from 'vue-eslint-parser';
 
 export default [
   {
@@ -10,7 +13,7 @@ export default [
   ...vue.configs['flat/recommended'],
   prettier,
   {
-    files: ['**/*.{js,mjs,cjs,vue}'],
+    files: ['**/*.{js,mjs,cjs,vue,ts}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -27,7 +30,6 @@ export default [
         __filename: 'readonly',
         // Laravel/Vite globals
         route: 'readonly',
-        axios: 'readonly',
       },
     },
     rules: {
@@ -45,16 +47,52 @@ export default [
 
       // Code style (handled by Prettier, but some logical rules)
       eqeqeq: ['error', 'always'],
-      curly: ['error', 'all']
+      curly: ['error', 'all'],
     },
   },
   {
+    // Vue files with proper parser
     files: ['**/*.vue'],
     languageOptions: {
+      parser: vueParser,
+      parserOptions: {
+        parser: typescriptParser,
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        extraFileExtensions: ['.vue'],
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescript,
+    },
+    rules: {
+      // Vue specific rules
+      'vue/multi-word-component-names': 'warn',
+      // TypeScript rules for Vue
+      '@typescript-eslint/no-unused-vars': 'error',
+      'no-unused-vars': 'off', // Turn off base rule as @typescript-eslint rule is used
+    },
+  },
+  {
+    // TypeScript files (non-Vue)
+    files: ['**/*.ts'],
+    languageOptions: {
+      parser: typescriptParser,
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
+        extraFileExtensions: ['.vue'],
       },
+    },
+    plugins: {
+      '@typescript-eslint': typescript,
+    },
+    rules: {
+      // TypeScript specific rules
+      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      // Override base rules that don't work well with TypeScript
+      'no-unused-vars': 'off',
     },
   },
   {

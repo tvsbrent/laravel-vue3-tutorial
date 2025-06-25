@@ -1,15 +1,16 @@
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
+import type { DefineComponent } from 'vue';
 
-import MainLayout from './Layouts/MainLayout.vue';
+import MainLayout from '@/Layouts/MainLayout.vue';
 
 createInertiaApp({
-  resolve: async (name) => {
-    const pages = import.meta.glob('./Pages/**/*.vue', { eager: true });
+  resolve: async (name: string) => {
+    const pages = import.meta.glob<{ default: DefineComponent }>('./Pages/**/*.vue', { eager: true });
     const page = await pages[`./Pages/${name}.vue`];
     page.default.layout ??= MainLayout;
 
-    return page;
+    return page.default;
   },
   setup({ el, App, props, plugin }) {
     createApp({ render: () => h(App, props) })

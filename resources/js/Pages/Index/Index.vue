@@ -3,8 +3,10 @@
   <div>The message is {{ message }}</div>
 </template>
 
-<script setup>
-  defineProps({
-    message: String,
-  });
+<script setup lang="ts">
+  interface Props {
+    message?: string;
+  }
+
+  defineProps<Props>();
 </script>
