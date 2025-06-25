@@ -5,9 +5,12 @@ import type { DefineComponent } from 'vue';
 import MainLayout from '@/Layouts/MainLayout.vue';
 
 createInertiaApp({
-  resolve: async (name: string) => {
-    const pages = import.meta.glob<{ default: DefineComponent }>('./Pages/**/*.vue', { eager: true });
-    const page = await pages[`./Pages/${name}.vue`];
+  resolve: (name: string) => {
+    const pages = import.meta.glob<{ default: DefineComponent }>(
+      './Pages/**/*.vue',
+      { eager: true },
+    );
+    const page = pages[`./Pages/${name}.vue`];
     page.default.layout ??= MainLayout;
 
     return page.default;
