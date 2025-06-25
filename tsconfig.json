@@ -15,9 +15,13 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./resources/js/*"]
+      "@/*": [
+        "./resources/js/*"
+      ],
     },
-    "types": ["vite/client"],
+    "types": [
+      "vite/client"
+    ],
     "strict": true,
     "noEmit": true,
     "jsx": "preserve"

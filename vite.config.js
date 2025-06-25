@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path';
+import laravel from 'laravel-vite-plugin';
+import { resolve } from 'node:path';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [
@@ -10,6 +10,9 @@ export default defineConfig({
       refresh: true,
     }),
     vue({
+      script: {
+        lang: 'ts',
+      },
       template: {
         transformAssetUrls: {
           // The Vue plugin will re-write asset URLs, when referenced
