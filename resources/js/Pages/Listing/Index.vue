@@ -1,10 +1,11 @@
 <template>
   <div>
-    <h1>Listings</h1>
-    <ul>
-      <li v-for="listing in listings" :key="listing.id">
+    <ul class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <Box as="li" v-for="listing in listings" :key="listing.id">
         <Link :href="route('listings.show', { listing: listing.id })">
-          <ListingAddress :listing="listing" />
+          <Price :price="listing.price" class="text-2xl font-bold"/>
+          <ListingInfo :listing="listing" class="text-lg"/>
+          <ListingAddress :listing="listing" class="text-gray-500"/>
         </Link>
         <Link :href="route('listings.edit', { listing: listing.id })">
           Edit
@@ -15,7 +16,7 @@
           as="button">
           Delete
         </Link>
-      </li>
+      </Box>
     </ul>
   </div>
 </template>
@@ -26,10 +27,10 @@
   import { Link } from '@inertiajs/vue3';
   import { route } from 'ziggy-js';
 
+  import Box from '@/Components/UI/Box.vue';
   import ListingAddress from '@/Components/ListingAddress.vue';
-
-  // Import the route helper if available globally
-  // If using Ziggy, this import path may differ
+  import ListingInfo from '@/Components/ListingInfo.vue';
+  import Price from '@/Components/Price.vue';
 
   defineProps<{
     listings: Listing[];
