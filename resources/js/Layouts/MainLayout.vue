@@ -13,7 +13,7 @@
         <div class="text-lg font-medium">
           <Link
             :href="route('listings.create')"
-            class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium p-2 rounded-md"
+            class="btn-primary"
             >+ New Listing</Link
           >&nbsp;
         </div>
