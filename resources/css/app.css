@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @layer components {
   .label {
@@ -15,5 +15,54 @@
 
   .btn-primary {
     @apply bg-indigo-600 hover:bg-indigo-500 text-white font-medium p-2 rounded-md;
+  }
+
+  .btn-normal {
+    @apply bg-gray-600 hover:bg-gray-500 text-white font-medium p-2 rounded-md;
+  }
+
+  .btn-outline {
+    @apply p-2
+      rounded-md
+      border
+      shadow-sm
+      border-gray-300
+      dark:border-gray-800
+      hover:border-gray-400
+      hover:bg-gray-50
+      dark:hover:bg-gray-700;
+  }
+
+  .input-filter-l {
+    @apply placeholder:text-gray-400
+      dark:placeholder:text-gray-600
+      p-1
+      border
+      border-gray-200
+      dark:border-gray-700
+      rounded-tl-md
+      rounded-bl-md
+      text-sm
+      font-medium
+      text-gray-600
+      dark:text-gray-400
+      dark:bg-gray-800;
+  }
+
+  .input-filter-r {
+    @apply placeholder:text-gray-400
+      dark:placeholder:text-gray-600
+      p-1
+      border
+      border-l-0
+      border-gray-200
+      dark:border-gray-700
+      rounded-tr-md
+      rounded-br-md
+      text-sm
+      font-medium
+      text-gray-600
+      dark:text-gray-400
+      dark:bg-gray-800;
   }
 }

@@ -2,17 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Listing;
+use Illuminate\Http\Request;
 
 class ListingController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Listing::class, 'listing');
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return inertia('Listing/Index', ['listings' => Listing::all()]);
+        $filters = $request->only([
+            'priceFrom',
+            'priceTo',
+            'beds',
+            'baths',
+            'areaFrom',
+            'areaTo',
+        ]);
+
+        return inertia(
+            'Listing/Index',
+            [
+                'filters' => $filters,
+                'listings' => Listing::latest()
+                    ->filter($filters)
+                    ->paginate(10)
+                    ->withQueryString()
+            ]
+        );
     }
 
     /**
@@ -28,7 +51,7 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        $listing = Listing::create($request->validate([
+        $listing = $request->user()->listings()->create($request->validate([
             'beds' => 'required|integer|min:0|max:20',
             'baths' => 'required|integer|min:0|max:20',
             'area' => 'required|integer|min:1',

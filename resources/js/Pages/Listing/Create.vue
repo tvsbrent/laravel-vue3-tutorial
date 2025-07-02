@@ -40,7 +40,7 @@
       <div class="col-span-2">
         <label class="label" for="street_nr">Street Number:</label>
         <input
-          v-model.number="form.street_nr"
+          v-model="form.street_nr"
           id="street_nr"
           type="text"
           class="input"
@@ -114,7 +114,7 @@
     beds: 0,
     baths: 0,
     area: 0,
-    street_nr: 0,
+    street_nr: '',
     street: '',
     city: '',
     code: '',

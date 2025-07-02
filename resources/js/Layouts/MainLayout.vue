@@ -10,12 +10,18 @@
           class="text-xl text-indigo-600 dark:text-indigo-300 font-bold text-center">
           <Link :href="route('listings.index')">My Project</Link>&nbsp;
         </div>
-        <div class="text-lg font-medium">
-          <Link
-            :href="route('listings.create')"
-            class="btn-primary"
+        <div v-if="user" class="text-lg font-medium flex items-center gap-4">
+          <Link :href="route('realtor.listing.index')" class="text-sm text-gray-500">{{ user.name }}</Link>
+          <Link :href="route('listings.create')" class="btn-primary"
             >+ New Listing</Link
           >&nbsp;
+          <Link :href="route('logout')" method="delete" as="button">
+            Logout
+          </Link>
+        </div>
+        <div v-else class="flex items-center gap-2">
+          <Link :href="route('user-account.create')">Register</Link>
+          <Link :href="route('login')">Sign-In</Link>
         </div>
       </nav>
     </div>
@@ -35,8 +41,10 @@
   import { Link, usePage } from '@inertiajs/vue3';
   import { route } from 'ziggy-js';
 
-  const page = usePage<{ flash: { success: string } }>();
-  const flashMessage = computed(
-    () => page.props.flash?.success,
-  );
+  const page = usePage<{
+    flash: { success: string };
+    user?: { name: string };
+  }>();
+  const flashMessage = computed(() => page.props.flash?.success);
+  const user = computed(() => page.props.user);
 </script>
